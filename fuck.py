@@ -1,4 +1,4 @@
-#http://127.0.0.1:8080/image_mars
+# http://127.0.0.1:8080/image_mars
 from flask import Flask
 
 app = Flask(__name__)
@@ -7,9 +7,13 @@ app = Flask(__name__)
 @app.route('/')
 def index11():
     return "Миссия Колонизация Марса"
+
+
 @app.route('/index')
 def index1():
     return "И на Марсе будут яблони цвести!"
+
+
 @app.route('/promotion')
 def promotion():
     pr_list = list()
@@ -24,6 +28,8 @@ def promotion():
 Присоединяйся!'''.split('\n'):
         pr_list.append(i)
     return '</br>'.join(pr_list)
+
+
 @app.route('/image_mars')
 def return_sample_page():
     return """<!doctype html>
@@ -38,6 +44,8 @@ def return_sample_page():
                   </body>
                     <h2>Вот она какая, красная планета<h2>
                 </html>"""
+
+
 @app.route('/promotion_image')
 def promotion_image():
     return '''<!doctype html>
@@ -71,5 +79,7 @@ def promotion_image():
                     </div>
                   </body>
                 </html>'''
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1', debug=True)
