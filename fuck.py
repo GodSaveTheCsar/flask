@@ -76,7 +76,7 @@ def promotion_image():
                     </div>
                   </body>
                 </html>'''
-@app.route('/form_sample', methods=['POST', 'GET'])
+@app.route('/austronaut_selection', methods=['POST', 'GET'])
 def form_sample():
     if request.method == 'GET':
         return '''<!doctype html>
@@ -92,8 +92,8 @@ def form_sample():
                             <title>Пример формы</title>
                           </head>
                           <body>
-                            <h1>Анкета Претендента</h1>
-                            <h2>на участие в миссии</h2>
+                            <h1 align=center>Анкета Претендента</h1>
+                            <h2 align=center>на участие в миссии</h2>
                             <div>
                                 <form class="login_form" method="post">
                                     <input type="text" class="form-control" id="text"placeholder="Фамилия" name="text">
