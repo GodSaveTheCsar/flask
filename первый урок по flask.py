@@ -1,4 +1,5 @@
-from flask import Flask, request, url_for
+from flask import Flask, request, render_template
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -7,9 +8,10 @@ def index11():
 
 
 @app.route('/index')
-def index1():
-    return "И на Марсе будут яблони цвести!"
-
+def index():
+    user = "Ученик Яндекс.Лицея"
+    return render_template('index.html', title='Домашняя страница',
+                           username=user)
 
 @app.route('/promotion')
 def promotion():
