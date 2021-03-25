@@ -37,7 +37,7 @@ def return_sample_page():
                   </head>
                   <body>
                     <h1>Жди нас, Марс!</h1>
-                    <img src="/static/img/mars.png" alt="здесь должна была быть картинка, но не нашлась">
+                    <img src="/static/img/MARS.png" alt="здесь должна была быть картинка, но не нашлась">
                   </body>
                     <h2>Вот она какая, красная планета<h2>
                 </html>"""
@@ -252,6 +252,61 @@ def aaa(nickname, level, rating):
                     </div>
                     </h2>
                   </body>"""
-
+@app.route('/load_photo',methods=['POST', 'GET'])
+def loading():
+    if request.method == 'GET':
+        return """
+        <!doctype html>
+                            <html lang="en">
+                              <head>
+                                <meta charset="utf-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                                <link rel="stylesheet"
+                                href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                                integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                                crossorigin="anonymous">
+                                <link rel="stylesheet" type="text/css" href="static/css/style.css">
+                                <title>Пример формы</title>
+                              </head>
+        <body>
+        <form class="login_form" method="post"enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="photo">Приложите фотографию</label>
+                <input type="file" class="form-control-file" id="photo" name="file">
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+        </body>
+        </html>"""
+    elif request.method == 'POST':
+        f = request.files['file']
+        file_path = "/static/img/" + str(f).split()[1][1:-1]
+        print(file_path)
+        return f"""
+        <!doctype html>
+                            <html lang="en">
+                              <head>
+                                <meta charset="utf-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                                <link rel="stylesheet"
+                                href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                                integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                                crossorigin="anonymous">
+                                <link rel="stylesheet" type="text/css" href="static/css/style.css">
+                                <title>Пример формы</title>
+                              </head>
+        <body>
+        <form class="login_form" method="post"enctype="multipart/form-data">
+        <div class="form-group">
+                                            <label for="photo">Приложите фотографию</label>
+                                            <input type="file" class="form-control-file" id="photo" name="file">
+                                        </div>
+        <img src="{file_path}" alt="здесь должна была быть картинка, но не нашлась">
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+        </body>
+        </html>
+        """
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1', debug=True)
