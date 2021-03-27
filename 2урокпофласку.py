@@ -1,3 +1,4 @@
+import json
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
@@ -21,5 +22,11 @@ def galery():
 @app.route('/distribution')
 def destribution():
     return render_template('distribution.html', dis=['a', 'b', 'c', 'd'])
+@app.route('/members')
+def members():
+    with open("templates/members.json", "rt", encoding="utf8") as f:
+        news_list = json.loads(f.read())
+    print(news_list)
+    return render_template('members.html', members=news_list)
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1', debug=True)
