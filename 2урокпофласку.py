@@ -6,12 +6,17 @@ from flask import Flask, request, render_template, redirect
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+
+
 @app.route('/index/<name>')
 def login(name):
     return render_template('base.html', title=name)
+
+
 @app.route('/galery', methods=['POST', 'GET'])
 def galery():
-    images = ["/static/img/mars1.jpg", "/static/img/mars2.jpg", "/static/img/mars3.jpeg", "/static/img/mars4.jpg", "/static/img/mars5.jpg"]
+    images = ["/static/img/mars1.jpg", "/static/img/mars2.jpg", "/static/img/mars3.jpeg", "/static/img/mars4.jpg",
+              "/static/img/mars5.jpg"]
     if request.method == 'GET':
         return render_template('carousel.html', title='Красная планета', images=images)
     elif request.method == "POST":
@@ -19,14 +24,25 @@ def galery():
         file_path = "/static/img/" + str(f).split()[1][1:-1]
         images.append(file_path)
         return render_template('carousel.html', title='Красная планета', images=images)
+
+
 @app.route('/distribution')
 def destribution():
     return render_template('distribution.html', dis=['a', 'b', 'c', 'd'])
+
+
 @app.route('/members')
 def members():
     with open("templates/members.json", "rt", encoding="utf8") as f:
         news_list = json.loads(f.read())
-    print(news_list)
     return render_template('members.html', members=news_list)
+
+
+@app.route('/list_prof/<list>')
+def list_prof(list):
+    print(list)
+    return render_template('list_prof.html', list=list)
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1', debug=True)
