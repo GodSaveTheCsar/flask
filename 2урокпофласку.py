@@ -18,5 +18,8 @@ def galery():
         file_path = "/static/img/" + str(f).split()[1][1:-1]
         images.append(file_path)
         return render_template('carousel.html', title='Красная планета', images=images)
+@app.route('/distribution')
+def destribution():
+    return render_template('distribution.html', dis=['a', 'b', 'c', 'd'])
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1', debug=True)
