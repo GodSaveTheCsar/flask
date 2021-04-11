@@ -1,0 +1,8 @@
+{
+    "members": [
+      {"name":"Danil Zaed", "image_source": "/static/img/DanilZaed.jpg", "proffesion": ["инженер-исследователь", "пилот"]},
+      {"name":"Max Wlea", "image_source": "/static/img/MaxWlea.jpg", "proffesion": ["астрогеолог", "гляциолог"]},
+      {"name":"Suzan Arty", "image_source": "/static/img/SuzanArty.jpg", "proffesion": ["штурман", "пилот дронов"]},
+      {"name":"Zara Yarte", "image_source": "/static/img/ZaraYarte.jpg", "proffesion": ["метеоролог", "оператор марсохода"]}
+    ]
+}

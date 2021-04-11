@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{%block content%}
+{%set member = members["members"] | random()%}
+<h3 align="center">{{member["name"]}}</h3>
+<div align="center"><img width= 400 height=650 src={{member["image_source"]}}></div>
+<div align="center">{{ member['proffesion'] | sort() | join(", ")}}</div>
+{% endblock %}
