@@ -16,32 +16,35 @@ def main():
     user.position = 'captain'
     user.speciality = 'research engineer'
     user.address = 'module_1'
-
-    user.name = "Ridley"
-    user.surname = "Well"
-    user.email = "scott_engineer@mars.org"
-    user.age = 19
-    user.position = 'yed'
-    user.speciality = 'yull'
-    user.address = 'module_2'
-
-    user.name = "Ridley"
-    user.surname = "Aught"
-    user.email = "scott_bruh@mars.org"
-    user.age = 20
-    user.position = 'rad'
-    user.speciality = 'yell'
-    user.address = 'module_3'
-
-    user.name = "Yalley"
-    user.surname = "Aught"
-    user.email = "scott_yalley@mars.org"
-    user.age = 14
-    user.position = 'ra1d'
-    user.speciality = 'yel1'
-    user.address = 'module_4'
+    user1 = User()
+    user1.name = "Ridley"
+    user1.surname = "Well"
+    user1.email = "scott_engineer@mars.org"
+    user1.age = 19
+    user1.position = 'yed'
+    user1.speciality = 'yull'
+    user1.address = 'module_2'
+    user2 = User()
+    user2.name = "Ridley"
+    user2.surname = "Aught"
+    user2.email = "scott_bruh@mars.org"
+    user2.age = 20
+    user2.position = 'rad'
+    user2.speciality = 'yell'
+    user2.address = 'module_3'
+    user3 = User()
+    user3.name = "Yalley"
+    user3.surname = "Aught"
+    user3.email = "scott_yalley@mars.org"
+    user3.age = 14
+    user3.position = 'ra1d'
+    user3.speciality = 'yel1'
+    user3.address = 'module_4'
     db_sess = db_session.create_session()
     db_sess.add(user)
+    db_sess.add(user1)
+    db_sess.add(user2)
+    db_sess.add(user3)
     db_sess.commit()
     #app.run()
 
