@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 db_session.global_init("db/mars_explorer.db")
-user = User()
+"""user = User()
 user.name = "Ridley"
 user.surname = "Scott"
 user.email = "scott_chief@mars.org"
@@ -42,8 +42,8 @@ user3.email = "scott_yalley@mars.org"
 user3.age = 14
 user3.position = 'ra1d'
 user3.speciality = 'yel1'
-user3.address = 'module_4'
-job = Jobs()
+user3.address = 'module_4'"""
+"""job = Jobs()
 job.team_leader = 1
 job.job = ' deployment of residential modules 1 and 2'
 job.work_size = 15
@@ -56,7 +56,8 @@ db_sess.add(user1)
 db_sess.add(user2)
 db_sess.add(user3)
 db_sess.add(job)
-db_sess.commit()
+db_sess.commit()"""
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
