@@ -1,62 +1,50 @@
-import datetime
-from flask import Flask, render_template
-from werkzeug.utils import redirect
-
+from wtforms.fields.html5 import EmailField
 from data import db_session
 from data.users import User
 from data.jobs import Jobs
 from forms.user import RegisterForm
+import datetime
+from flask import Flask, request, render_template, redirect, make_response, session
+from flask_login import LoginManager, UserMixin, logout_user, login_required, login_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import BooleanField, SubmitField
+from wtforms.validators import DataRequired
+
+
+class LoginForm(FlaskForm):
+    email = EmailField('Почта', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    remember_me = BooleanField('Запомнить меня')
+    submit = SubmitField('Войти')
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-db_session.global_init("db/mars_explorer.db")
-user = User()
-user.name = "Ridley"
-user.surname = "Scott"
-user.email = "scott_chief@mars.org"
-user.age = 21
-user.position = 'captain'
-user.speciality = 'research engineer'
-user.address = 'module_1'
-user1 = User()
-user1.name = "Ridley"
-user1.surname = "Well"
-user1.email = "scott_engineer@mars.org"
-user1.age = 19
-user1.position = 'yed'
-user1.speciality = 'yull'
-user1.address = 'module_2'
-user2 = User()
-user2.name = "Ridley"
-user2.surname = "Aught"
-user2.email = "scott_bruh@mars.org"
-user2.age = 20
-user2.position = 'rad'
-user2.speciality = 'yell'
-user2.address = 'module_3'
-user3 = User()
-user3.name = "Yalley"
-user3.surname = "Aught"
-user3.email = "scott_yalley@mars.org"
-user3.age = 14
-user3.position = 'ra1d'
-user3.speciality = 'yel1'
-user3.address = 'module_4'
-job = Jobs()
-job.team_leader = 1
-job.job = ' deployment of residential modules 1 and 2'
-job.work_size = 15
-job.collaborators = '2, 3'
-job.start_date = datetime.datetime.now()
-job.is_finished = False
-db_sess = db_session.create_session()
-db_sess.add(user)
-db_sess.add(user1)
-db_sess.add(user2)
-db_sess.add(user3)
-db_sess.add(job)
-db_sess.commit()
+
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect("/")
+        return render_template('login.html',
+                               message="Неправильный логин или пароль",
+                               form=form)
+    return render_template('login.html', title='Авторизация', form=form)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
@@ -81,6 +69,11 @@ def reqister():
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1', debug=True)
